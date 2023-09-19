@@ -34,7 +34,7 @@ openai
 
 All you need for this is:
 
-openai
+openai \
 requests
 
 
