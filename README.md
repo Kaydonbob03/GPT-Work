@@ -15,15 +15,15 @@ The Included Files are as Follows:
 
 To use this program make sure to pip install the following:
 
-pyaudio \n
-numpy \n
-azure.cognitiveservices.speech \n
-azure \n
-openai \n
-threading \n
-keyboard \n
-google.cloud \n
-speech \n
+pyaudio \
+numpy \
+azure.cognitiveservices.speech \
+azure \
+openai \
+threading \
+keyboard \
+google.cloud \
+speech \
 wave 
 
 3. InputtoResponse.py - This script has two different varients. Just comment out either or to change it. The two options are just chatting with GPT or chatting with GPT with a Fixed Prompt before your input.
@@ -36,7 +36,7 @@ openai
 
 All you need for this is:
 
-openai \n
+openai \
 requests
 
 
