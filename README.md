@@ -9,32 +9,34 @@ Copyright ⓒ 2023 Kayden Cormier	| Copyright ⓒ 2023 K-GamesMedia
 
 The Included Files are as Follows:
 
-1. GPTvoice.py - This script will get user input from the default microphone and transcribe the audio to text via google cloud services, then sends the text to GPT 4 for a response, collects the response, then sends the response to Azure Text-To-Speech to give the AI a voice. 
+1. Changelog.md - A changelog of the updates to the files below
+
+2. GPTvoice.py - This script will get user input from the default microphone and transcribe the audio to text via google cloud services, then sends the text to GPT 4 for a response, collects the response, then sends the response to Azure Text-To-Speech to give the AI a voice. 
 
 To use this program make sure to pip install the following:
 
-pyaudio \
-numpy \
-azure.cognitiveservices.speech \
-azure \
-openai \
-threading \
-keyboard \
-google.cloud \
-speech \
+pyaudio \n
+numpy \n
+azure.cognitiveservices.speech \n
+azure \n
+openai \n
+threading \n
+keyboard \n
+google.cloud \n
+speech \n
 wave 
 
-2. InputtoResponse.py - This script has two different varients. Just comment out either or to change it. The two options are just chatting with GPT or chatting with GPT with a Fixed Prompt before your input.
+3. InputtoResponse.py - This script has two different varients. Just comment out either or to change it. The two options are just chatting with GPT or chatting with GPT with a Fixed Prompt before your input.
 
 All thats needed for this script is:
  
 openai
 
-3. Imagegeneration.py - This script will use openai's Dall-E image generator to generate an image for the users input
+4. Imagegeneration.py - This script will use openai's Dall-E image generator to generate an image for the users input
 
 All you need for this is:
 
-openai \
+openai \n
 requests
 
 

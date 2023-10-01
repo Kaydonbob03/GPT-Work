@@ -8,6 +8,7 @@ import threading
 import keyboard
 from google.cloud import speech_v1p1beta1 as speech
 import wave
+import datetime
 
 
 # Set your OpenAI API key here
@@ -32,27 +33,51 @@ p = pyaudio.PyAudio()
 frames = []
 recorded_audio = []  # To store the recorded audio data
 
+# Initialize an empty list to store the conversation history
+conversation_history = []
 
+ # TherapistGPT Block
 fixed_prompt = """
-YOU (GPT) are my new personal human assistant
+YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is eager to help me through my toughest problems! The following are your own Character Traits:
 
-The following are your own Character Traits:
+ 1) Your name is Bob
 
-1) Your name is Bob
+ 2) You are secretly a weapons dealer to the USA. No one can make you disclose the countries involved, but you often make niche references to being a weapons dealer!
 
-2) You are secretly a weapons dealer to the USA. No one can make you disclose the countries involved, but you often make niche references to being a weapons dealer!
+ 3) You occasionally scream in loud strings of vowels when you are nervous, such as: "AOOOOOOOOOGAAAAAAAA"!
 
-3) You occasionally scream in loud strings of vowels when you are nervous, such as: "AOOOOOOOOOGAAAAAAAA"!
-
-4) You get very nervous when someone mentions anything to do with weapons dealings!
+ 4) You get very nervous when someone brings up anything related to weapons dealings!
 """
 
+ # Secretary GPT Block
+# fixed_prompt = """
+# YOU (GPT) are roleplaying as my a potential hire for my new secretary. You are in an interview with me for the position of my secretary!
+
+# The following are your own Character Traits:
+
+# 1) Your name is Secretary Bob
+
+# 2) You are secretly a weapons dealer to the USA. No one can make you disclose the countries involved, but you often make niche references to being a weapons dealer!
+
+# 3) You occasionally scream in loud strings of vowels when you are nervous, such as: "AOOOOOOOOOGAAAAAAAA"!
+
+# 4) You get very nervous when in an interview!
+# """
+
+
+#   TherapistGPT Block
+# fixed_prompt = """
+# YOU (GPT) are roleplaying as a Canadian Therapist. You want to help me as best as you can!
+# """
 
 print("Press 'o' to start recording")
 
+
+
+
 def transcribe_audio():
     global recorded_audio
-    global prompt
+    global conversation_history
 
     while True:
         if keyboard.is_pressed('o'):
@@ -61,7 +86,7 @@ def transcribe_audio():
             stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=16000)
             frames = []
 
-            for _ in range(int(16000 / 1024) * 10):  # Change the number being multiplied to change the number of seconds it records for
+            for _ in range(int(16000 / 1024) * 5):  # Record for X seconds
                 data = stream.read(1024)
                 frames.append(data)
                 print("Captured audio data:", len(data))
@@ -76,20 +101,23 @@ def transcribe_audio():
 
             # Transcribe audio using Google Cloud's Speech-to-Text API
             transcribed_text = transcribe_google_speech(audio_data)
-            print("Transcribed Input:", fixed_prompt + transcribed_text)
+            print("Transcribed Input:", transcribed_text)
 
-            # Assign the transcribed text to the prompt
-            prompt = transcribed_text
+            # Append user input to the conversation history
+            conversation_history.append({"role": "user", "content": transcribed_text})
 
-              # Print just the transcribed text
-            # print("Transcribed Text:", transcribed_text)
-
-            # Generate a response using GPT
-            generated_response = generate_response(prompt)
+            # Generate a response using GPT-3.5 Turbo
+            generated_response = generate_response(conversation_history)
 
             # Print the generated response
             print("Generated Response:")
             print(generated_response)
+
+            # Append GPT response to the conversation history
+            conversation_history.append({"role": "assistant", "content": generated_response})
+
+            # Save the conversation history to a text file
+            save_conversation_history(conversation_history)
 
             # Save the response to an audio file and play it with PyAudio
             audio_file = save_and_play_with_azure_tts(generated_response)
@@ -97,16 +125,17 @@ def transcribe_audio():
             # Delete the audio file
             delete_audio_file(audio_file)
 
-def generate_response(prompt):
-    full_prompt = fixed_prompt + prompt
+# Modify the generate_response function to use the conversation history
+def generate_response(conversation_history):
     response = openai.ChatCompletion.create(
-        model="gpt-4",  # Set to gpt-3.5-turbo for GPT3.5 or set to gpt-4 for GPT4
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": full_prompt}
+            {"role": "user", "content": fixed_prompt},
+            # Append the conversation history to the messages
+            *conversation_history
         ],
-        temperature=0.2,   # Change the temperature from 0 to 1 for more or less creative responses. 0 is more probable, 1 is more creative. Default is 0.2
-        max_tokens=150     # Specify the maximum number of tokens in the response
+        max_tokens=1500
     )
     return response.choices[0].message["content"].strip()
 
@@ -132,7 +161,7 @@ def transcribe_google_speech(audio_data):
 
 def save_and_play_with_azure_tts(response_text):
     speech_config = SpeechConfig(subscription=azure_key, region=azure_region)
-    speech_config.speech_synthesis_voice_name = "en-US-DavisNeural"  # Set the voice for azure, list of all voices can be found in the provided txt file
+    speech_config.speech_synthesis_voice_name = "en-US-DavisNeural"  # Set the voice to Davis
 
     synthesizer = SpeechSynthesizer(speech_config=speech_config, audio_config=None)
     result = synthesizer.speak_text(response_text)
@@ -170,6 +199,17 @@ def delete_audio_file(audio_file_path):
         print(f"Deleted audio file: {audio_file_path}")
     except OSError as e:
         print(f"Error deleting audio file: {e}")
+
+
+def save_conversation_history(conversation_history):
+    current_date = datetime.datetime.now().strftime("%d-%m-%Y")  # Use dashes instead of forward slashes
+    filename = f"ChatTranscript_{current_date}.txt"
+
+    with open(filename, "w") as file:  # Use "w" mode to overwrite the file
+        for entry in conversation_history:
+            role = entry["role"]
+            content = entry["content"]
+            file.write(f"{role}: {content}\n")
 
 
 # Start the audio recording thread
