@@ -35,6 +35,7 @@ recorded_audio = []  # To store the recorded audio data
 
 # Initialize an empty list to store the conversation history
 conversation_history = []
+print("Initialized Conversation History")
 
  # TherapistGPT Block
 fixed_prompt = """
@@ -64,11 +65,7 @@ YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is 
 # 4) You get very nervous when in an interview!
 # """
 
-
-#   TherapistGPT Block
-# fixed_prompt = """
-# YOU (GPT) are roleplaying as a Canadian Therapist. You want to help me as best as you can!
-# """
+print("Intialized Fixed Prompt")
 
 print("Press 'o' to start recording")
 
@@ -125,7 +122,7 @@ def transcribe_audio():
             # Delete the audio file
             delete_audio_file(audio_file)
 
-# Modify the generate_response function to use the conversation history
+
 def generate_response(conversation_history):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -202,7 +199,7 @@ def delete_audio_file(audio_file_path):
 
 
 def save_conversation_history(conversation_history):
-    current_date = datetime.datetime.now().strftime("%d-%m-%Y")  # Use dashes instead of forward slashes
+    current_date = datetime.datetime.now().strftime("%d-%m-%Y")  
     filename = f"ChatTranscript_{current_date}.txt"
 
     with open(filename, "w") as file:  # Use "w" mode to overwrite the file
