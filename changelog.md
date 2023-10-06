@@ -15,3 +15,13 @@ Changes:
 2. Added Changelog
 
 3. Updated README
+
+October 6th 2023:
+
+1. Added New file: inputtovoice.py
+
+   - This file is like gptvoice but instead of user input via audio, it will get user input via text
+
+2. Updated Changelog
+
+3. Updated README
