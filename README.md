@@ -51,7 +51,23 @@ pyaudio \
 numpy \
 azure.cognitiveservices.speech \
 azure \
+google.cloud \
 openai \
 wave \
+
+6. GPTVoicewithGUI.py - much like GPTvoice.py, this file will provide user input to GPT, get a response, then send the response to azure tts. Althought, instead of doing everything through the code, this instead is a gui based application. This will allow the user to edit the fixed prompt and then start the recording with the press of a button.
+
+To use this program make sure to pip install the following:
+
+pyaudio \
+numpy \
+azure.cognitiveservices.speech \
+azure \
+openai \
+threading \
+keyboard \
+google.cloud \
+speech \
+wave
 
 Thanks for checking out my code!
