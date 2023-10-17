@@ -25,3 +25,13 @@ October 6th 2023:
 2. Updated Changelog
 
 3. Updated README
+
+October 17th 2023:
+
+1. Added new file: GPTVoicewithGUI.py
+
+   - This file is like GPTvoice, except instead of doing everything by just running the file, this one is a gui based application allowing the user to change the fixed prompt and then begin the thread
+
+2. Updated Changelog
+
+3. Updated README
