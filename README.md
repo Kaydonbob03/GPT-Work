@@ -51,7 +51,6 @@ pyaudio \
 numpy \
 azure.cognitiveservices.speech \
 azure \
-google.cloud \
 openai \
 wave \
 
