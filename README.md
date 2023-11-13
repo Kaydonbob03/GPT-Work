@@ -8,6 +8,9 @@ The files contained here are the work of Kayden Cormier (Kaydonbob03) and K-Game
 
 Copyright ⓒ 2023 Kayden Cormier | Copyright ⓒ 2023 K-GamesMedia
 
+To use any of these programs you will need an openai api key. You can get one [here](https://platform.openai.com/account/api-keys)
+To use the GPTaudio script you will also need an azure key. you can get one [here](https://portal.azure.com/#home) and then navigate to speech services and make an api key. You will also need Google Cloud services credentials. Google Cloud credentials can be found [here](https://console.cloud.google.com/apis/credentials)
+
 The Included Files are as Follows:
 
 1. Changelog.md - A changelog of the updates to the files below
@@ -45,9 +48,6 @@ All you need for this is:
 openai
 requests
 ```
-
-To use any of these programs you will need an openai api key. You can get one [here](https://platform.openai.com/account/api-keys)
-To use the GPTaudio script you will also need an azure key. you can get one [here](https://portal.azure.com/#home) and then navigate to speech services and make an api key. You will also need Google Cloud services credentials. Google Cloud credentials can be found [here](https://console.cloud.google.com/apis/credentials)
 
 5. inputtovoice.py - much like GPTvoice.py, this file will provide user input to GPT, get a response, then send the response to azure tts. Althought, instead of getting user input via audio transcrption, it will instead get user input via text
 
