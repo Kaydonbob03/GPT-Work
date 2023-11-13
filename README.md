@@ -16,22 +16,26 @@ The Included Files are as Follows:
 
 To use this program make sure to pip install the following:
 
-pyaudio \
-numpy \
-azure.cognitiveservices.speech \
-azure \
-openai \
-threading \
-keyboard \
-google.cloud \
-speech \
+```CSS
+pyaudio
+numpy
+azure.cognitiveservices.speech
+azure
+openai
+threading
+keyboard
+google.cloud
+speech
 wave
+```
 
 3. InputtoResponse.py - This script has two different varients. Just comment out either or to change it. The two options are just chatting with GPT or chatting with GPT with a Fixed Prompt before your input.
 
 All thats needed for this script is:
 
+```CSS
 openai
+```
 
 4. Imagegeneration.py - This script will use openai's Dall-E image generator to generate an image for the users input
 
@@ -49,26 +53,30 @@ To use the GPTaudio script you will also need an azure key. you can get one [her
 
 To use this program make sure to pip install the following:
 
-pyaudio \
-numpy \
-azure.cognitiveservices.speech \
-azure \
-openai \
+```CSS
+pyaudio
+numpy
+azure.cognitiveservices.speech
+azure
+openai
 wave
+```
 
 6. GPTVoicewithGUI.py - much like GPTvoice.py, this file will provide user input to GPT, get a response, then send the response to azure tts. Althought, instead of doing everything through the code, this instead is a gui based application. This will allow the user to edit the fixed prompt and then start the recording with the press of a button.
 
 To use this program make sure to pip install the following:
 
-pyaudio \
-numpy \
-azure.cognitiveservices.speech \
-azure \
-openai \
-threading \
-keyboard \
-google.cloud \
-speech \
+```CSS
+pyaudio
+numpy
+azure.cognitiveservices.speech
+azure
+openai
+threading
+keyboard
+google.cloud
+speech
 wave
+```
 
 Thanks for checking out my code!
