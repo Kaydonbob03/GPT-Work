@@ -19,7 +19,7 @@ The Included Files are as Follows:
 
 To use this program make sure to pip install the following:
 
-```CSS
+```PYTHON
 pyaudio
 numpy
 azure.cognitiveservices.speech
