@@ -19,7 +19,7 @@ The Included Files are as Follows:
 
 To use this program make sure to pip install the following:
 
-```CSS
+```markdown
 pyaudio
 numpy
 azure.cognitiveservices.speech
@@ -36,7 +36,7 @@ wave
 
 All thats needed for this script is:
 
-```CSS
+```markdown
 openai
 ```
 
@@ -44,7 +44,7 @@ openai
 
 All you need for this is:
 
-```CSS
+```markdown
 openai
 requests
 ```
@@ -53,7 +53,7 @@ requests
 
 To use this program make sure to pip install the following:
 
-```CSS
+```markdown
 pyaudio
 numpy
 azure.cognitiveservices.speech
@@ -66,7 +66,7 @@ wave
 
 To use this program make sure to pip install the following:
 
-```CSS
+```markdown
 pyaudio
 numpy
 azure.cognitiveservices.speech
