@@ -36,7 +36,7 @@ wave
 
 All thats needed for this script is:
 
-```CSS
+```PYTHON
 openai
 ```
 
@@ -44,7 +44,7 @@ openai
 
 All you need for this is:
 
-```CSS
+```PYTHON
 openai
 requests
 ```
@@ -53,7 +53,7 @@ requests
 
 To use this program make sure to pip install the following:
 
-```CSS
+```PYTHON
 pyaudio
 numpy
 azure.cognitiveservices.speech
@@ -66,7 +66,7 @@ wave
 
 To use this program make sure to pip install the following:
 
-```CSS
+```PYTHON
 pyaudio
 numpy
 azure.cognitiveservices.speech
