@@ -36,41 +36,41 @@ For specific functionalities like speech-to-text and text-to-speech, additional 
    - Transcribes user input from a microphone using Google Cloud, processes it through GPT-4, and then outputs spoken responses via Azure Text-To-Speech.
 
    Required installations:
-   \```shell
+   ```shell
    pip install pyaudio numpy azure.cognitiveservices.speech openai threading keyboard google.cloud speech wave
-   \```
+   ```
 
 3. **InputtoResponse.py**
    - Offers two modes: standard GPT chat and GPT chat with a fixed prompt. Toggle between them by commenting out the desired section.
 
    Dependencies:
-   \```shell
+   ```shell
    pip install openai
-   \```
+   ```
 
 4. **Imagegeneration.py**
    - Generates images based on user input using OpenAI's Dall-E.
 
    Install:
-   \```shell
+   ```shell
    pip install openai requests
-   \```
+   ```
 
 5. **inputtovoice.py**
    - Similar to GPTvoice.py, but takes text input instead of audio.
 
    Install these packages:
-   \```shell
+   ```shell
    pip install pyaudio numpy azure.cognitiveservices.speech openai wave
-   \```
+   ```
 
 6. **GPTVoicewithGUI.py**
    - An interactive GUI application that mirrors the functionality of GPTvoice.py but allows users to edit the fixed prompt and start recording with a button click. Currently in the testing phase.
 
    Dependencies:
-   \```shell
+   ```shell
    pip install pyaudio numpy azure.cognitiveservices.speech openai threading keyboard google.cloud speech wave
-   \```
+   ```
 
 ---
 
