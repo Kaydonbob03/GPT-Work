@@ -1,57 +1,81 @@
 # GPT-Work
 
-A Repo of Python Scripts Working With The GPT API As Well As Other Programs Including GPT
+## Overview
 
-Hi!
+Welcome to **GPT-Work**, a collection of Python scripts that interface with the GPT API and other related technologies. These tools are designed to showcase the capabilities of AI-driven interactions in various forms.
 
-The files contained here are the work of Kayden Cormier (Kaydonbob03) and K-Games Media.
+### Author
 
-Copyright ⓒ 2023 Kayden Cormier | Copyright ⓒ 2023 K-GamesMedia
+Developed by **Kayden Cormier (Kaydonbob03)** and **K-Games Media**.
 
-The Included Files are as Follows:
+### Copyright
 
-1. Changelog.md - A changelog of the updates to the files below
+ⓒ 2023 Kayden Cormier | ⓒ 2023 K-Games Media. All Rights Reserved.
 
-2. GPTvoice.py - This script will get user input from the default microphone and transcribe the audio to text via google cloud services, then sends the text to GPT 4 for a response, collects the response, then sends the response to Azure Text-To-Speech to give the AI a voice.
+This repository is for personal use and educational purposes. Users are permitted to access, use, and modify the code. **Redistribution or commercial use is strictly prohibited.**
 
-To use this program make sure to pip install the following:
+---
 
-pyaudio \
-numpy \
-azure.cognitiveservices.speech \
-azure \
-openai \
-threading \
-keyboard \
-google.cloud \
-speech \
-wave
+## Getting Started
 
-3. InputtoResponse.py - This script has two different varients. Just comment out either or to change it. The two options are just chatting with GPT or chatting with GPT with a Fixed Prompt before your input.
+To utilize these scripts, an OpenAI API key is essential. Obtain one from [OpenAI API Keys](https://platform.openai.com/account/api-keys).
 
-All thats needed for this script is:
+For specific functionalities like speech-to-text and text-to-speech, additional keys are required:
 
-openai
+- **Azure Key**: Create one at the [Azure Portal](https://portal.azure.com/#home) under speech services.
+- **Google Cloud Services Credentials**: Available at [Google Cloud Credentials](https://console.cloud.google.com/apis/credentials).
 
-4. Imagegeneration.py - This script will use openai's Dall-E image generator to generate an image for the users input
+---
 
-All you need for this is:
+## Included Files
 
-openai \
-requests
+1. **Changelog.md**
+   - Documents the updates and changes made to the scripts in this repository.
 
-To use any of these programs you will need an openai api key. You can get one [here](https://platform.openai.com/account/api-keys)
-To use the GPTaudio script you will also need an azure key. you can get one [here](https://portal.azure.com/#home) and then navigate to speech services and make an api key. You will also need Google Cloud services credentials. Google Cloud credentials can be found [here](https://console.cloud.google.com/apis/credentials)
+2. **GPTvoice.py**
+   - Transcribes user input from a microphone using Google Cloud, processes it through GPT-4, and then outputs spoken responses via Azure Text-To-Speech.
 
-5. inputtovoice.py - much like GPTvoice.py, this file will provide user input to GPT, get a response, then send the response to azure tts. Althought, instead of getting user input via audio transcrption, it will instead get user input via text
+   Required installations:
+   ```shell
+   pip install pyaudio numpy azure.cognitiveservices.speech openai threading keyboard google.cloud speech wave
+   ```
 
-To use this program make sure to pip install the following:
+3. **InputtoResponse.py**
+   - Offers two modes: standard GPT chat and GPT chat with a fixed prompt. Toggle between them by commenting out the desired section.
 
-pyaudio \
-numpy \
-azure.cognitiveservices.speech \
-azure \
-openai \
-wave \
+   Dependencies:
+   ```shell
+   pip install openai
+   ```
 
-Thanks for checking out my code!
+4. **Imagegeneration.py**
+   - Generates images based on user input using OpenAI's Dall-E.
+
+   Install:
+   ```shell
+   pip install openai requests
+   ```
+
+5. **inputtovoice.py**
+   - Similar to GPTvoice.py, but takes text input instead of audio.
+
+   Install these packages:
+   ```shell
+   pip install pyaudio numpy azure.cognitiveservices.speech openai wave
+   ```
+
+6. **GPTVoicewithGUI.py**
+   - An interactive GUI application that mirrors the functionality of GPTvoice.py but allows users to edit the fixed prompt and start recording with a button click. Currently in the testing phase.
+
+   Dependencies:
+   ```shell
+   pip install pyaudio numpy azure.cognitiveservices.speech openai threading keyboard google.cloud speech wave
+   ```
+
+---
+
+### Thank You
+
+Thank you for exploring my code! Your feedback and contributions are always welcome.
+
+---
