@@ -10,6 +10,8 @@ from google.cloud import speech_v1p1beta1 as speech
 import wave
 import datetime
 
+#  -------------------------------------------------------------------------
+ # Initilization
 
 # Set your OpenAI API key here
 openai.api_key = "YOUR_OPENAI_API_KEY"
@@ -37,7 +39,9 @@ recorded_audio = []  # To store the recorded audio data
 conversation_history = []
 print("Initialized Conversation History")
 
+#  -------------------------------------------------------------------------
  # TherapistGPT Block
+
 fixed_prompt = """
 YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is eager to help me through my toughest problems! The following are your own Character Traits:
 
@@ -50,19 +54,10 @@ YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is 
  4) You get very nervous when someone brings up anything related to weapons dealings!
 """
 
- # Secretary GPT Block
+#  -------------------------------------------------------------------------
+ # Other GPT Block
 # fixed_prompt = """
-# YOU (GPT) are roleplaying as my a potential hire for my new secretary. You are in an interview with me for the position of my secretary!
-
-# The following are your own Character Traits:
-
-# 1) Your name is Secretary Bob
-
-# 2) You are secretly a weapons dealer to the USA. No one can make you disclose the countries involved, but you often make niche references to being a weapons dealer!
-
-# 3) You occasionally scream in loud strings of vowels when you are nervous, such as: "AOOOOOOOOOGAAAAAAAA"!
-
-# 4) You get very nervous when in an interview!
+#
 # """
 
 print("Intialized Fixed Prompt")
@@ -209,10 +204,9 @@ def save_conversation_history(conversation_history):
             file.write(f"{role}: {content}\n")
 
 
-# Start the audio recording thread
 audio_thread = threading.Thread(target=transcribe_audio)
 audio_thread.start()
 
-audio_thread.join()  # Wait for the audio thread to finish
+audio_thread.join() 
 
 print("To Talk Again Press 'o' To Start Recording")
