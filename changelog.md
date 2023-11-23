@@ -1,37 +1,53 @@
 # Changelog
 
-Copyright ⓒ 2023 Kayden Cormier | Copyright ⓒ 2023 K-GamesMedia
+Copyright © 2023 Kayden Cormier | Copyright © 2023 K-GamesMedia
 
-September 30th 2023:
+## Revision History
 
-1.  Updated GPTvoice.py - Version 2.0
+### September 30, 2023:
 
-Changes:
+#### GPTvoice.py Update - Version 2.0
+- Enhanced conversation continuity: Modified to maintain a running transcript of the dialogue, improving AI's contextual understanding and preventing conversation resets.
+- Transcript archival: Implemented functionality to save conversation transcripts as "ChatTranscript_{current_date}.txt", updating after each AI response.
 
-- Instead of just sending the fixed prompt with new user prompt, This caused GPT to get confused and restart the conversation often, It now keeps a transcript of the chat that it will sned to GPT with new user input so you can have a conversation with the AI.
+#### Documentation and Maintenance
+- Initiated Changelog documentation.
+- Updated README file.
 
-- It will now save the transcript to a text file under the name "ChatTranscript\_{current_date}.txt". This text files gets updated after each new response from GPT.
+---
 
-2. Added Changelog
+### October 6, 2023:
 
-3. Updated README
+#### New Feature: inputtovoice.py
+- Introduced a new module for text-based user input, complementing the existing audio input functionality in GPTvoice.
 
-October 6th 2023:
+#### Documentation Updates
+- Revised Changelog.
+- Updated README file.
 
-1. Added New file: inputtovoice.py
+---
 
-   - This file is like gptvoice but instead of user input via audio, it will get user input via text
+### October 17, 2023:
 
-2. Updated Changelog
+#### New Development: GPTVoicewithGUI.py
+- Launched a GUI version of GPTvoice, offering an interactive interface for customizing the fixed prompt and initiating the conversation thread. (Note: This is currently under development.)
 
-3. Updated README
+#### Documentation Enhancements
+- Updated Changelog.
+- Revised README file.
 
-October 17th 2023:
+---
 
-1. Added new file: GPTVoicewithGUI.py
+### November 23, 2023:
 
-   - This file is like GPTvoice, except instead of doing everything by just running the file, this one is a gui based application allowing the user to change the fixed prompt and then begin the thread
+#### GPTvoice.py Enhancement - Version 3.0
+- Advanced audio processing: Significantly restructured the 'transcribe_audio' function for improved audio recording and processing. 
+- Robust error handling: Integrated comprehensive exception handling for audio recording, speech transcription, and Azure TTS processing.
+- GPT-3.5 Turbo fallback: Implemented a fallback mechanism to GPT-3.5 Turbo for scenarios where GPT-4 is unavailable, enhancing system resilience.
 
-2. Updated Changelog
+#### Release and Documentation
+- Updated README file.
+- Revised Changelog.
+- Published new GitHub release - v5.0. 
 
-3. Updated README
+These updates collectively enhance the system's performance, user experience, and reliability, marking significant strides in our ongoing development efforts.
