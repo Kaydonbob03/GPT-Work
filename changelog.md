@@ -50,4 +50,19 @@ Copyright © 2023 Kayden Cormier | Copyright © 2023 K-GamesMedia
 - Revised Changelog.
 - Published new GitHub release - v5.0. 
 
-These updates collectively enhance the system's performance, user experience, and reliability, marking significant strides in our ongoing development efforts.
+> These updates collectively enhance the system's performance, user experience, and reliability, marking significant strides in our ongoing development efforts.
+
+---
+
+### January 11, 2024:
+
+#### InputtoResponse.py Enhancement - Version 2.0
+- Updated the API calling logic to the new OpenAi API endpoints for GPT API. It also now tries the user's access to gpt-4-turbo, then if that fails it goes to gpt-4, and if that fails it falls back to gpt-3.5-turbo which all users have access to.
+
+#### Imageneration.py Enhancement - Version 2.0
+- Updated the API calling logic to the new OpenAI API endpoints for Dall-E-3
+
+#### Release and Documentation
+- Updated README file.
+- Revised Changelog.
+- Published new GitHub release - v5.1.0 

@@ -49,7 +49,7 @@ For specific functionalities like speech-to-text and text-to-speech, additional 
    ```
 
 4. **Imagegeneration.py**
-   - Generates images based on user input using OpenAI's Dall-E.
+   - Generates images based on user input using OpenAI's Dall-E-3.
 
    Install:
    ```shell
