@@ -3,7 +3,7 @@ import time
 import pyaudio
 import numpy as np
 from azure.cognitiveservices.speech import SpeechSynthesizer, SpeechConfig
-import openai
+from openai import OpenAI
 import threading
 import keyboard
 from google.cloud import speech_v1p1beta1 as speech
@@ -13,12 +13,18 @@ import tkinter as tk
 from tkinter import scrolledtext
 
 
-# Set your OpenAI API key here
-openai.api_key = "YOUR_OPENAI_API_KEY"
-print("Initialized OpenAi")
+# Retrieve your OpenAI API key from an environment variable
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if the API key is set
+if not api_key:
+    raise ValueError("The OpenAI API key is not set in the environment variables.")
+
+# Initialize the OpenAI client
+client = OpenAI(api_key=api_key)  # Updated initialization
 
 # Initialize Google Cloud client for Speech-to-Text
-# Alternatively you can set the google credentials in Command Prompt
+# Alternatively you can set the google credentials in Command Prompt or an env var
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"PATH_TO_GOOGLE_CREDENTIALS_FILE(IF APPLICABLE)"
 client = speech.SpeechClient()
 print("Initialized Google Cloud Speech To Text")
@@ -125,18 +131,26 @@ start_button.pack(pady=20)
 root.mainloop()
 
 
-def generate_response(conversation_history):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": fixed_prompt},
-            # Append the conversation history to the messages
-            *conversation_history
-        ],
-        max_tokens=1500
-    )
-    return response.choices[0].message["content"].strip()
+def generate_response(conversation_history, model_name="gpt-4-1106-preview"):
+    try:
+        completion = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": fixed_prompt},
+                *conversation_history  # Append the conversation history
+            ]
+        )
+        return completion.choices[0].message.content.strip()
+    except Exception as e:
+        if model_name == "gpt-4-1106-preview":
+            print("Failed to access GPT-4-1106-preview, falling back to GPT-4.")
+            return generate_response(conversation_history, "gpt-4")
+        elif model_name == "gpt-4":
+            print("Failed to access GPT-4, falling back to GPT-3.5-turbo.")
+            return generate_response(conversation_history, "gpt-3.5-turbo")
+        else:
+            raise e
 
 
 def transcribe_google_speech(audio_data):

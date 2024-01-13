@@ -66,3 +66,20 @@ Copyright © 2023 Kayden Cormier | Copyright © 2023 K-GamesMedia
 - Updated README file.
 - Revised Changelog.
 - Published new GitHub release - v5.1.0 
+
+---
+
+### January 12, 2024:
+
+#### GPTvoice.py Enhancement - Version 4.0
+- Updated the API calling logic to the new OpenAi API endpoints for GPT API. It also now tries the user's access to gpt-4-turbo, then if that fails it goes to gpt-4, and if that fails it falls back to gpt-3.5-turbo which all users have access to.
+
+#### GPTvoicewithGUI.py Enhancement - Version 2.0
+- Updated the API calling logic to the new OpenAi API endpoints for GPT API. It also now tries the user's access to gpt-4-turbo, then if that fails it goes to gpt-4, and if that fails it falls back to gpt-3.5-turbo which all users have access to.
+
+#### inputtovoice.py Enhancement - Version 2.0
+- Updated the API calling logic to the new OpenAi API endpoints for GPT API. It also now tries the user's access to gpt-4-turbo, then if that fails it goes to gpt-4, and if that fails it falls back to gpt-3.5-turbo which all users have access to.
+
+#### Release and Documentation
+- Revised Changelog.
+- Published new GitHub release - v5.2.0 

@@ -3,7 +3,7 @@ import time
 import pyaudio
 import numpy as np
 from azure.cognitiveservices.speech import SpeechSynthesizer, SpeechConfig
-import openai
+from openai import OpenAI  # Updated import
 import threading
 import keyboard
 from google.cloud import speech_v1p1beta1 as speech
@@ -13,19 +13,24 @@ import datetime
 # -------------------------------------------------------------------------
 # Initialization
 
-# Set your OpenAI API key here
-openai.api_key = "YOUR_OPENAI_API_KEY"
-print("Initialized OpenAi")
+# Retrieve your OpenAI API key from an environment variable
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if the API key is set
+if not api_key:
+    raise ValueError("The OpenAI API key is not set in the environment variables.")
+
+# Initialize the OpenAI client
+client = OpenAI(api_key=api_key)  # Updated initialization
 
 # Initialize Google Cloud client for Speech-to-Text
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"PATH_TO_GOOGLE_CREDENTIALS_FILE(IF APPLICABLE)"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"PATH_TO_GOOGLE_CREDENTIALS_FILE"
 client = speech.SpeechClient()
 print("Initialized Google Cloud Speech To Text")
 
 # Initialize Azure Text-to-Speech client
 azure_key = "YOUR_AZURE_KEY"
 azure_region = "YOUR_AZURE_REGION"
-
 speech_config = SpeechConfig(subscription=azure_key, region=azure_region)
 
 # Initialize PyAudio
@@ -57,6 +62,7 @@ YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is 
 print("Initialized Fixed Prompt")
 
 print("Press 'o' to start recording")
+
 
 def transcribe_audio():
     global recorded_audio
@@ -111,25 +117,26 @@ def transcribe_audio():
         except Exception as e:
             print(f"Error during audio recording or processing: {e}")
 
-def generate_response(conversation_history, model_name="gpt-4"):
+def generate_response(conversation_history, model_name="gpt-4-1106-preview"):
     try:
-        response = openai.ChatCompletion.create(
+        completion = client.chat.completions.create(
             model=model_name,
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": fixed_prompt},
-                # Append the conversation history to the messages
-                *conversation_history
-            ],
-            max_tokens=1500
+                *conversation_history  # Append the conversation history
+            ]
         )
-        return response.choices[0].message["content"].strip()
-    except openai.error.InvalidRequestError:
-        if model_name != "gpt-3.5-turbo":
+        return completion.choices[0].message.content.strip()
+    except Exception as e:
+        if model_name == "gpt-4-1106-preview":
+            print("Failed to access GPT-4-1106-preview, falling back to GPT-4.")
+            return generate_response(conversation_history, "gpt-4")
+        elif model_name == "gpt-4":
             print("Failed to access GPT-4, falling back to GPT-3.5-turbo.")
             return generate_response(conversation_history, "gpt-3.5-turbo")
         else:
-            raise
+            raise e
 
 def transcribe_google_speech(audio_data):
     try:
@@ -151,6 +158,7 @@ def transcribe_google_speech(audio_data):
     except Exception as e:
         print(f"Error during speech transcription: {e}")
         return ""
+
 
 def save_and_play_with_azure_tts(response_text):
     try:

@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import os
 import time
 import pyaudio
@@ -6,8 +6,15 @@ import numpy as np
 from azure.cognitiveservices.speech import SpeechSynthesizer, SpeechConfig
 import wave
 
-# Set your OpenAI API key here
-openai.api_key = "YOUR_OPENAI_API_KEY"
+# Retrieve your OpenAI API key from an environment variable
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if the API key is set
+if not api_key:
+    raise ValueError("The OpenAI API key is not set in the environment variables.")
+
+# Initialize the OpenAI client
+client = OpenAI(api_key=api_key)  # Updated initialization
 
 # Initialize Azure Text-to-Speech client
 azure_key = "YOUR_AZURE_KEY"
@@ -24,7 +31,7 @@ recorded_audio = []
 # Initialize an empty list to store the conversation history
 conversation_history = []
 
-# Set the GPT-3.5 Turbo prompt
+# Set the prompt
 fixed_prompt = """
 YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is eager to help me through my toughest problems! The following are your own Character Traits:
 
@@ -37,17 +44,26 @@ YOU (GPT) are roleplaying as My New Therapist. you are a human therapist who is 
  4) You get very nervous when someone brings up anything related to weapons dealings!
 """
 
-def generate_response(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.2,
-        max_tokens=150,
-    )
-    return response.choices[0].message["content"].strip()
+def generate_response(conversation_history, model_name="gpt-4-1106-preview"):
+    try:
+        completion = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": fixed_prompt},
+                *conversation_history  # Append the conversation history
+            ]
+        )
+        return completion.choices[0].message.content.strip()
+    except Exception as e:
+        if model_name == "gpt-4-1106-preview":
+            print("Failed to access GPT-4-1106-preview, falling back to GPT-4.")
+            return generate_response(conversation_history, "gpt-4")
+        elif model_name == "gpt-4":
+            print("Failed to access GPT-4, falling back to GPT-3.5-turbo.")
+            return generate_response(conversation_history, "gpt-3.5-turbo")
+        else:
+            raise e
 
 def save_and_play_with_azure_tts(response_text):
     speech_config = SpeechConfig(subscription=azure_key, region=azure_region)
