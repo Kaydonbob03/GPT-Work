@@ -14,7 +14,7 @@ client = OpenAI(api_key=api_key)
 # -------------------------------------------------------------------
 
 
-def generate_response(prompt, model_name="gpt-4-1106-preview"):
+def generate_response(prompt, model_name="gpt-4-turbo"):
     try:
         completion = client.chat.completions.create(
             model=model_name,
@@ -25,11 +25,8 @@ def generate_response(prompt, model_name="gpt-4-1106-preview"):
         )
         return completion.choices[0].message.content.strip()
     except Exception as e:
-        if model_name == "gpt-4-1106-preview":
-            print("Failed to access GPT-4-1106-preview, falling back to GPT-4.")
-            return generate_response(prompt, "gpt-4")
-        elif model_name == "gpt-4":
-            print("Failed to access GPT-4, falling back to GPT-3.5-turbo.")
+        if model_name == "gpt-4-turbo":
+            print("Failed to access GPT-4 Turbo, falling back to GPT-3.5 Turbo.")
             return generate_response(prompt, "gpt-3.5-turbo")
         else:
             raise e
@@ -49,6 +46,7 @@ while True:
     print("Generated Response:")
     print(generated_response)
 
+
     
     
     # -------------------------------------------------------------------------
@@ -59,23 +57,22 @@ while True:
 # # Fixed prompt that will be added to the beginning of each input
 # fixed_prompt = "You are acting as a Canadian fratboy. Please phrase your response as such using 'Bro' and 'eh' frequently.:\n"
 
-# def generate_response(user_input, model_name="gpt-4"):
-#     full_prompt = fixed_prompt + user_input
+# def generate_response(prompt, model_name="gpt-4-turbo"):
 #     try:
-#         response = openai.ChatCompletion.create(
+#         completion = client.chat.completions.create(
 #             model=model_name,
 #             messages=[
 #                 {"role": "system", "content": "You are a helpful assistant."},
-#                 {"role": "user", "content": full_prompt}
+#                 {"role": "user", "content": prompt}
 #             ]
 #         )
-#         return response['choices'][0]['message']['content'].strip()
-#     except openai.error.InvalidRequestError:
-#         if model_name != "gpt-3.5-turbo":
-#             print("Failed to access GPT-4, falling back to GPT-3.5-turbo.")
-#             return generate_response(user_input, "gpt-3.5-turbo")
+#         return completion.choices[0].message.content.strip()
+#     except Exception as e:
+#         if model_name == "gpt-4-turbo":
+#             print("Failed to access GPT-4 Turbo, falling back to GPT-3.5 Turbo.")
+#             return generate_response(prompt, "gpt-3.5-turbo")
 #         else:
-#             raise
+#             raise e
 
 # while True:
 #     # Get user input
