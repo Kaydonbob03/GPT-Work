@@ -1,0 +1,2 @@
+# ignore the log files from testing on my local machine
+*.txt
